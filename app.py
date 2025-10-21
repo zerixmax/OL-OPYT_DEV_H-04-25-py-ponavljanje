@@ -1,4 +1,15 @@
 # Invoice
+def calculate_totals(items, tax_rate):
+    # duzi nacin zapisa sum(item["quantity"] * item["unit_price"] for item in items)
+    # subtotal = 0
+    # for item in items:
+    #     item_total_price = item["quantity"] * item["unit_price"]
+    #     subtotal += item_total_price
+    subtotal = sum(item["quantity"] * item["unit_price"] for item in items)
+    tax = subtotal * tax_rate
+    total = subtotal + tax
+    return subtotal, tax, total
+
 invoice_number = "INV-1001"
 invoice_date = "2024-06-15"
 due_date = "2024-07-15"
@@ -10,12 +21,10 @@ items = [
     {"description": "Domain Registration (1 year)", "quantity": 1, "unit_price": 15.00},
 ]
 tax_rate = 0.25  # 25% sales tax
-def calculate_totals(items, tax_rate):
-    subtotal = sum(item["quantity"] * item["unit_price"] for item in items)
-    tax = subtotal * tax_rate
-    total = subtotal + tax
-    return subtotal, tax, total
+
 subtotal, tax, total = calculate_totals(items, tax_rate)
+
+
 print(f"Invoice Number: {invoice_number}")
 print(f"Invoice Date: {invoice_date}")
 print(f"Due Date: {due_date}")
