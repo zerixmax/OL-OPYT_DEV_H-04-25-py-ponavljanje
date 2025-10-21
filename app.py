@@ -41,37 +41,6 @@ class Invoice:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 invoice = Invoice(
     invoice_number="INV-1001",
     invoice_date="2024-06-15",
