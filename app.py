@@ -47,6 +47,30 @@ class Email:
         return f"{self.email_address} ({self.email_type})"
 
 
+class Phone:
+    def __init__(self, phone_number, phone_type="Mobile"):
+        # Ovdje ćemo dodati logiku za validaciju broja telefona
+        # Za sada, samo provjeravamo da nije prazan
+        if not phone_number:
+            raise ValueError("Phone number cannot be empty.")
+        
+        # Ovdje možemo dodati i logiku za formatiranje broja (npr. uklanjanje razmaka)
+        self.phone_number = self.format_phone_number(phone_number)
+        self.phone_type = phone_type
+
+    def format_phone_number(self, number_str):
+        # Primjer jednostavnog formatiranja: uklanja sve što nije broj ili '+' na početku
+        formatted = ''.join(filter(lambda x: x.isdigit() or (x == '+' and x == number_str[0]), number_str))
+        if formatted and not formatted.startswith('+') and len(formatted) > 6: # Heuristička provjera za dodavanje '+'
+            return '+' + formatted # Dodajemo '+' ako nije prisutan i broj je dovoljno dug
+        return formatted
+
+    def __str__(self):
+        return f"{self.phone_type}: {self.phone_number}"
+
+    def __repr__(self):
+        return f"Phone('{self.phone_number}', '{self.phone_type}')"
+
 class Invoice:
     def __init__(self, invoice_number, invoice_date, due_date, client, items=[], tax_rate=0.25):
         self.invoice_number = invoice_number
@@ -123,7 +147,8 @@ class InvoiceItem:
 
 postal_address = PostalAddress("Ulica Primjera", "10A", "10000", "Zagreb", "Hrvatska")
 email_address = Email("pero@email.com", "Work")
-pero_peric = Client("Pero", "Peric", postal_address, email_address, "+38591234567")
+phone_number = Phone("+385 91 234 567")
+pero_peric = Client("Pero", "Peric", postal_address, email_address, phone_number)
 
 
 invoice = Invoice(
